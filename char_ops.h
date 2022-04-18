@@ -20,6 +20,7 @@
 
 #ifndef _CHAR_OPS_H
 #define _CHAR_OPS_H
+#include <string.h>
 
 /**
  * is_digit_str - Determine whether a string is a number.
@@ -35,6 +36,16 @@ int hexstrToHexchar(char* out, unsigned int len, const char* in);
 long long hexStrTOll(const char* str);
 long long hexStrLittleTOll(const char* str);
 int hexstrLittleToDecstr(const char* str, char* out, int len);
+int llToHexstrBigend(long long num, char* hexstr, int len);
+int llToHexstrLittle(long long num, char* hexstr, int len);
+int strCopyC(char* buff, int len, const char* str);
+#define STR_COPY(buff, len, str) ({ \
+    int strlenght = strlen(str); \
+    strlenght = strlenght<len?strlenght:len-1; \
+    memcpy(buff, str, strlenght); \
+    buff[strlenght] = 0; \
+})
+
 #ifdef __cplusplus
 }
 #endif

@@ -148,3 +148,39 @@ int hexstrLittleToDecstr(const char *str, char *out, int len)
     snprintf(out, len, "%lld", hexStrLittleTOll(str));
     return 0;
 }
+
+int llToHexstrBigend(long long num, char *hexstr, int len)
+{
+    if (NULL==hexstr || len<=0)
+        return -1;
+
+    printf("long long 转16进制字符串 %lld\n", num);
+    snprintf(hexstr, len, "%llx", num);
+    return 0;
+}
+
+int llToHexstrLittle(long long num, char *hexstr, int len)
+{
+    char* pc = (char*)(&num);
+    char size = sizeof(num);
+    printf("long long 长度 %d\n", size);
+    if (NULL==hexstr || len<=(2*size))
+        return -1;
+
+    for (char i=0;i<size;i++)
+        sprintf(hexstr+2*i, "%02x", pc[i]);
+    return 0;
+}
+
+int strCopyC(char *buff, int len, const char* str)
+{
+    if (NULL==buff || len<=0 || NULL==str)
+        return -1;
+
+    int strlenght = strlen(str);
+    strlenght = strlenght<len?strlenght:len-1;
+
+    memcpy(buff, str, strlenght);
+    buff[strlenght] = 0;
+    return 0;
+}
